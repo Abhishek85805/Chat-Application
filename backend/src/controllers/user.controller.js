@@ -28,7 +28,6 @@ const register = asyncHandler(async(req, res) => {
         avatarImagePath = req.files.avatar[0].path;
     }
     const avatar = await uploadOnCloudinary(avatarImagePath);
-    console.log(avatar);
 
     const user = await User.create({
         username,
@@ -49,7 +48,7 @@ const register = asyncHandler(async(req, res) => {
         data: createdUser,
         message: "User registered successfully"
     })
-})
+});
 
 const login = asyncHandler(async(req, res) => {
     const {email, password} = req.body;
@@ -91,7 +90,7 @@ const login = asyncHandler(async(req, res) => {
         token,
         message: "User logged in successfully"
     })
-})
+});
 
 const searchUser = asyncHandler(async(req, res) => {
     const {username} = req.body;
@@ -111,11 +110,16 @@ const searchUser = asyncHandler(async(req, res) => {
         })
     }
 
+    //Check if user with given username is friend with current user
+    const currentUser = await User.findById(req.user?._id);
+    const isFriend = currentUser.friends.includes(user._id);
+
     return res.status(200).json({
         data: user,
+        isFriend,
         message: "User searched successfully"
     })
-})
+});
 
 const currentUser = asyncHandler(async(req, res) => {
     const user = req.user;
@@ -124,11 +128,99 @@ const currentUser = asyncHandler(async(req, res) => {
         data: user,
         message: "User fetched successfully"
     })
-})
+});
+
+const request = asyncHandler(async(req, res) => {
+    const user = req.user;
+
+    const requesterId = user._id;
+    const {recipientId} = req.body
+
+    //If recipient Id is not there
+    if(!recipientId){
+        return res.status(400).json({
+            message: "Recipient Id is required"
+        })
+    }
+
+    //If requesterId is already present in friendRequests of recipient
+    const recipient = await User.findById(recipientId);
+    if(recipient.friendRequests.includes(requesterId)){
+        return res.status(409).json({
+            message: "Request sent already"
+        })
+    }
+
+    //Add request in friendRequest List of recipient
+    recipient.friendRequests.push(requesterId);
+    recipient.save({validationBeforeSave: true});
+
+    return res.status(201).json({
+        message: "Friend Request has been sent successfully"
+    })
+});
+
+const requestAccepted = asyncHandler(async(req, res) => {
+    const currentUserId = req.user._id;
+    const {requesterId} = req.body;
+
+    if(!requesterId){
+        return res.status(400).json({
+            message: "Requester Id is required"
+        })
+    }
+
+    //remove from the friendRequests array and add in friend array
+    const user = await User.findById(currentUserId);
+    const index = user.friendRequests.indexOf(requesterId);
+    user.friendRequests.splice(index, 1);
+    user.friends.push(requesterId);
+    user.save({validationBeforeSave: true});
+
+    //add friend in the requester's friends list and remove current user for requester's friendRequests list if present
+    const requester = await User.findById(requesterId);
+    if(requester.friendRequests.includes(currentUserId)){
+        const indi = requester.friendRequests.indexOf(currentUserId);
+        requester.friendRequests.splice(indi, 1);
+    }
+    requester.friends.push(currentUserId);
+    requester.save({validateBeforeSave: true});
+
+
+    return res.status(200).json({
+        message: "Request accepted successfully"
+    })
+});
+
+const requestRejected = asyncHandler(async(req, res) =>{
+    const currentUserId = req.user._id;
+    const {requesterId} = req.body;
+
+    if(!requesterId){
+        return res.status(400).json({
+            message: "Requester Id is required"
+        })
+    }
+
+    //remove from the friendRequests array
+    const user = await User.findById(currentUserId);
+    const index = user.friendRequests.indexOf(requesterId);
+    user.friendRequests.splice(index, 1);
+    user.save({validationBeforeSave: true});
+
+    return res.status(200).json({
+        message: "Request rejected successfully"
+    })
+});
+
+
 
 export {
     register,
     login,
     searchUser,
-    currentUser
+    currentUser,
+    request,
+    requestAccepted,
+    requestRejected
 }

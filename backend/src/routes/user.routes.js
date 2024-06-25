@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { register, login, searchUser, currentUser } from "../controllers/user.controller.js";
+import { register, login, searchUser, currentUser, request, requestAccepted, requestRejected } from "../controllers/user.controller.js";
 import { upload } from '../middlewares/multer.middleware.js';
 import verifyJWT from '../middlewares/auth.middleware.js';
 
@@ -15,9 +15,11 @@ router.route("/register").post(
     register
 );
 router.route("/login").post(login);
-router.route("/search-user").post(searchUser);
+router.route("/search-user").post(verifyJWT, searchUser);
 router.route("/current-user").get(verifyJWT, currentUser);
-
+router.post('/request', verifyJWT, request);
+router.post('/request-accepted', verifyJWT, requestAccepted);
+router.post('/request-rejected', verifyJWT, requestRejected);
 
 export default router;
 
