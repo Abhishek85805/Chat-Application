@@ -213,7 +213,24 @@ const requestRejected = asyncHandler(async(req, res) =>{
     })
 });
 
+const unFriend = asyncHandler(async(req, res) => {
+    const userId = req.user._id;
+    const {friendId} = req.body;
 
+    const user = await User.findById(userId);
+    let index = user.friends.indexOf(friendId);
+    user.friends.splice(index, 1);
+    user.save({validateBeforeSave: true});
+
+    const friend = await User.findById(friendId);
+    index = friend.friends.indexOf(userId);
+    friend.friends.splice(index, 1);
+    friend.save({validateBeforeSave: true});
+
+    return res.status(200).json({
+        message: "User removed from your friend list successfully"
+    })
+});
 
 export {
     register,
@@ -222,5 +239,6 @@ export {
     currentUser,
     request,
     requestAccepted,
-    requestRejected
+    requestRejected,
+    unFriend
 }
