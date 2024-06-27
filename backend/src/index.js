@@ -1,4 +1,4 @@
-import express, { urlencoded } from 'express';
+import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -17,6 +17,9 @@ const port = process.env.PORT;
 
 import userRouter from './routes/user.routes.js';
 app.use("/api/user", userRouter);
+
+import messageRouter from './routes/message.routes.js';
+app.use("/api/message", messageRouter);
 
 dbConnection()
 .then(()=>{
