@@ -21,9 +21,7 @@ function RegisterForm() {
   return (
     <div className='w-96 bg-darkGrey rounded-lg text-white pl-9 pr-9 pt-6 pb-6'>
         <h1 className='text-3xl mb-4 p-3 flex justify-center items-center font-semibold font-sans'>Register</h1>
-        <form 
-        onSubmit={handleSubmit(onSubmit)}
-        >
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div className='flex flex-col gap-1 mb-4'>
                 <label htmlFor="username">Username: </label>
                 <input 

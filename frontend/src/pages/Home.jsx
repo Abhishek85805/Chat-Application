@@ -1,47 +1,25 @@
-import axios from 'axios';
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import {Link, Outlet} from 'react-router-dom';
 
 function Home() {
-    const [search, setSearch] = useState("");
-    const navigate = useNavigate();
-
-    const handleSubmit = async(e) => {
-      e.preventDefault();
-      try {
-        const token = localStorage.getItem('token');
-        const friend = await axios.post('http://localhost:3000/api/user/search-user', {username: search}, {
-          headers:{
-            Authorization: `Bearer ${token}`
-          }
-        });
-        console.log(friend.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  return (
-    <div>
-      <div>
-
-      </div>
-      <div>
-        <div>
-          <h1></h1>
-          <h3></h3>
-          <form onSubmit={handleSubmit}>
-            <input 
-            name='search'
-            type="text" 
-            placeholder='Search For a Friend'
-            onChange={(e)=> setSearch(e.target.value)}
-            />
-            <button>Submit</button>
-          </form>
+    return (
+      <div className="h-screen flex flex-row">
+        <div style={{width: '10%'}} className="h-full flex flex-col shadow-md">
+          <div className='shadow-sm p-3 mb-1'>
+            <Link to='/'>Message</Link>
+          </div>
+          <div className='shadow-sm p-3 mb-1'>
+            <Link to='/search-friend'>Search For friend</Link>
+          </div>
+          <div className='shadow-sm p-3 mb-1'>
+            <Link to='/user'>Profile</Link>
+          </div>
+        </div>
+        <div style={{width: '90%'}}>
+          <Outlet/>
         </div>
       </div>
-    </div>
-  )
+      
+    )
 }
 
 export default Home
