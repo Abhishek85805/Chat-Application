@@ -23,7 +23,6 @@ function RegisterForm() {
         <h1 className='text-3xl mb-4 p-3 flex justify-center items-center font-semibold font-sans'>Register</h1>
         <form 
         onSubmit={handleSubmit(onSubmit)}
-        className=''
         >
             <div className='flex flex-col gap-1 mb-4'>
                 <label htmlFor="username">Username: </label>
@@ -46,7 +45,7 @@ function RegisterForm() {
                 })}
                 id='email'
                 type='email'
-                placeholder='Write Your Email'
+                placeholder='Enter Your Email'
                 className='bg-darkGrey outline-none'
                 />
             </div>
@@ -59,13 +58,17 @@ function RegisterForm() {
                 })}
                 id='password'
                 type="password" 
-                placeholder='Password'
+                placeholder='Enter Your Password'
                 className='bg-darkGrey outline-none'
                 />
             </div>
             
-            <p>Already have an account? <Link to='/login'>Login</Link> </p>
-            <button>Register</button>
+            <p className='mb-4'>
+                Already have an account? <Link to='/login' className='text-lightPurple'>Login</Link> 
+            </p>
+            <button className='text-darkGrey font-semibold bg-white block w-full p-2 rounded-md mb-4'>
+                Register
+            </button>
         </form>
     </div>
   )
