@@ -3,8 +3,8 @@ import RegisterForm from '../components/RegisterForm.jsx'
 
 function Register() {
   return (
-    <div>
-        <RegisterForm/>
+    <div className='h-screen flex justify-center items-center'>
+      <RegisterForm/>
     </div>
   )
 }

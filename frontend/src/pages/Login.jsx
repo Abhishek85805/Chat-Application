@@ -3,7 +3,7 @@ import LoginForm from '../components/LoginForm'
 
 function Login() {
   return (
-    <div>
+    <div className='h-screen'>
       <div>
         <LoginForm/>
       </div>

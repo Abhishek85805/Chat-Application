@@ -2,7 +2,7 @@ import React from 'react'
 import {useForm} from 'react-hook-form';
 import axios from 'axios';
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function RegisterForm() {
     const {register, handleSubmit} = useForm();
@@ -19,38 +19,52 @@ function RegisterForm() {
     }
 
   return (
-    <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <label htmlFor="username">Username: </label>
-            <input 
-            {...register("username", {
-                required: "Username is required"
-            })}
-            id='username'
-            type='text'
-            placeholder='username'
-            />
-
-            <label htmlFor="email">Email: </label>
-            <input 
-            {...register("email", {
-                required: "Email is required"
-            })}
-            id='email'
-            type='email'
-            placeholder='Email'
-            />
-
-            <label htmlFor="password">Password: </label>
-            <input 
-            {...register("password", {
-                required: "Password is required"
-            })}
-            id='password'
-            type="password" 
-            placeholder='Password'
-            />
-
+    <div className='w-96 bg-darkGrey rounded-lg text-white pl-9 pr-9 pt-6 pb-6'>
+        <h1 className='text-3xl mb-4 p-3 flex justify-center items-center font-semibold font-sans'>Register</h1>
+        <form 
+        onSubmit={handleSubmit(onSubmit)}
+        className=''
+        >
+            <div className='flex flex-col gap-1 mb-4'>
+                <label htmlFor="username">Username: </label>
+                <input 
+                {...register("username", {
+                    required: "Username is required"
+                })}
+                id='username'
+                type='text'
+                placeholder='Enter Your Username'
+                className='bg-darkGrey outline-none'
+                />
+            </div>
+            
+            <div className='flex flex-col gap-1 mb-4'>
+                <label htmlFor="email">Email: </label>
+                <input 
+                {...register("email", {
+                    required: "Email is required"
+                })}
+                id='email'
+                type='email'
+                placeholder='Write Your Email'
+                className='bg-darkGrey outline-none'
+                />
+            </div>
+            
+            <div className='flex flex-col gap-1 mb-4'>
+                <label htmlFor="password">Password: </label>
+                <input 
+                {...register("password", {
+                    required: "Password is required"
+                })}
+                id='password'
+                type="password" 
+                placeholder='Password'
+                className='bg-darkGrey outline-none'
+                />
+            </div>
+            
+            <p>Already have an account? <Link to='/login'>Login</Link> </p>
             <button>Register</button>
         </form>
     </div>
