@@ -232,6 +232,26 @@ const unFriend = asyncHandler(async(req, res) => {
     })
 });
 
+const allFriends = asyncHandler(async(req, res) => {
+    const userId = req.user._id;
+    const result = await User.aggregate([
+        {$match: {_id: userId}},
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'friends',
+                foreignField: '_id',
+                as: 'friendsInfo'
+            }
+        }
+    ])
+
+    res.status(200).json({
+        data: result,
+        message: 'Friends fetched successfully'
+    })
+})
+
 export {
     register,
     login,
@@ -240,5 +260,6 @@ export {
     request,
     requestAccepted,
     requestRejected,
-    unFriend
+    unFriend,
+    allFriends
 }

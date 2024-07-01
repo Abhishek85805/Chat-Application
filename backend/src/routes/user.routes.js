@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { register, login, searchUser, currentUser, request, requestAccepted, requestRejected, unFriend } from "../controllers/user.controller.js";
+import { register, login, searchUser, currentUser, request, requestAccepted, requestRejected, unFriend, allFriends } from "../controllers/user.controller.js";
 import { upload } from '../middlewares/multer.middleware.js';
 import verifyJWT from '../middlewares/auth.middleware.js';
 
@@ -21,6 +21,8 @@ router.post('/request', verifyJWT, request);
 router.post('/request-accepted', verifyJWT, requestAccepted);
 router.post('/request-rejected', verifyJWT, requestRejected);
 router.post('/un-friend', verifyJWT, unFriend);
+router.route('/all-friends').get(verifyJWT, allFriends);
+
 
 export default router;
 
