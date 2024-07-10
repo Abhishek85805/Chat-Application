@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import {Avatar} from "@nextui-org/avatar";
+import UserComponent from './User/UserComponent';
 
 function Chat() {
   const [user, setUser] = useState({});
@@ -55,26 +57,18 @@ function Chat() {
 
   return (
     <div className='w-full h-full flex flex-row'>
-      <div className='w-1/3 h-full bg-lightBlue p-3'>
+      <div className='w-1/3 h-full bg-white p-3'>
 
         {user.friendsInfo ? (
           user.friendsInfo.map(friend => {
             return (
-              <div key={friend._id} className='h-28 flex flex-row p-3 shadow-lg rounded-lg bg-white mb-3' onClick={()=>handleMessages(friend._id)}>
-                <div className='w-20 h-20 shadow-lg rounded-full mr-4'>
-                  <img src={friend.avatar} alt={friend.username} className='w-full h-full rounded-full' />
-                </div>
-                <div className='h-full flex-grow flex flex-col justify-evenly'>
-                  <div className='w-full flex justify-between'>
-                    <div className='font-semibold'>{friend.username}</div>
-                    <div className='text-lightGrey'>2:24PM</div>
-                  </div>
-                  <div className='w-full flex justify-between'>
-                    <div className='text-lightGrey'>Last Message</div>
-                    <div className='w-8 h-8 rounded-full bg-lightPurple flex justify-center items-center font-semibold text-white'>1</div>
-                  </div>
-                </div>
+              <div 
+              key={friend._id} 
+              className='h-28 flex flex-row p-3 rounded-lg bg-white border border-lightBlue mb-3' 
+              onClick={()=>handleMessages(friend._id)}>
+                <UserComponent friend={friend}/>
               </div>
+
             );
           })
         ) : (
@@ -85,7 +79,7 @@ function Chat() {
 
       
       <div className='w-2/3 h-full p-5 flex flex-col justify-between'>
-        <div className='flex-grow overflow-y-auto'>
+        <div className='flex-grow h-0 overflow-y-auto'>
           {messages.length > 0 ? (
             messages.map((message, index) => (
               <div key={index} className={`p-3 mb-2 rounded-lg ${message.fromSelf===true ? 'self-end bg-lightPurple text-white rounded-l-lg' : 'self-start bg-lightBlue text-black rounded-r-lg'}`}>

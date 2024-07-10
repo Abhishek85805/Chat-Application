@@ -4,7 +4,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import {Toaster} from 'sonner';
 import Chat from './components/Chat';
-import User from './components/User';
+import Profile from './components/Profile';
 import SearchFriend from './components/SearchFriend';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
         <Route path='/' element={<Home/>}>
           <Route index element={<Chat/>}/>
           <Route path='/search-friend' element={<SearchFriend/>}/>
-          <Route path='/user' element={<User/>}/>
+          <Route path='/profile' element={<Profile/>}/>
         </Route>
       </Routes>
     </div>
