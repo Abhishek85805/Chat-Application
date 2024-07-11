@@ -79,7 +79,7 @@ function Chat() {
 
       
       <div className='w-2/3 h-full p-5 flex flex-col justify-between'>
-        <div className='flex-grow h-0 overflow-y-auto'>
+        <div className='flex-grow h-0 overflow-y-auto flex flex-col'>
           {messages.length > 0 ? (
             messages.map((message, index) => (
               <div key={index} className={`p-3 mb-2 rounded-lg ${message.fromSelf===true ? 'self-end bg-lightPurple text-white rounded-l-lg' : 'self-start bg-lightBlue text-black rounded-r-lg'}`}>
