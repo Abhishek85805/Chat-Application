@@ -213,6 +213,24 @@ const requestRejected = asyncHandler(async(req, res) =>{
     })
 });
 
+const friendRequests = asyncHandler(async(req, res) => {
+    const userId = req.user._id;
+    const user = await User.findById(userId);
+    if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Find the details of users who sent friend requests
+    const friendRequestDetails = await User.find({
+        _id: { $in: user.friendRequests }
+    });
+
+    res.status(200).json({
+        data: friendRequestDetails,
+        message: "Friend requests fetched successfully"
+    });
+});
+
 const unFriend = asyncHandler(async(req, res) => {
     const userId = req.user._id;
     const {friendId} = req.body;
@@ -261,5 +279,6 @@ export {
     requestAccepted,
     requestRejected,
     unFriend,
-    allFriends
+    allFriends,
+    friendRequests
 }

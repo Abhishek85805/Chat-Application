@@ -66,6 +66,17 @@ export default function NavbarComponent() {
           </Link>
         </NavbarItem>
         <NavbarItem
+        isActive={activeItem === "Requests"}
+        >
+          <Link 
+          color="foreground" 
+          to="/friend-requests"
+          onClick={()=>handleActiveItem("Requests")}
+          >
+            Requests
+          </Link>
+        </NavbarItem>
+        <NavbarItem
         isActive={activeItem === "Profile"}
         >
           <Link 

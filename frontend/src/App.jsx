@@ -6,6 +6,7 @@ import {Toaster} from 'sonner';
 import Chat from './components/Chat';
 import Profile from './components/Profile';
 import SearchFriend from './components/SearchFriend';
+import FriendRequests from './components/FriendRequests';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route index element={<Chat/>}/>
           <Route path='/search-friend' element={<SearchFriend/>}/>
           <Route path='/profile' element={<Profile/>}/>
+          <Route path='/friend-requests' element={<FriendRequests/>}/>
         </Route>
       </Routes>
     </div>

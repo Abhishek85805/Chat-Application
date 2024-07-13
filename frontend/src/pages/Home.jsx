@@ -7,7 +7,7 @@ function Home() {
           <div>
             <NavbarComponent/>
           </div>
-          <div className='flex-grow'>
+          <div className='flex-grow h-0'>
             <Outlet/>
           </div>
       </div>
