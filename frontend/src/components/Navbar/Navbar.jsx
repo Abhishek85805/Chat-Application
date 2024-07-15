@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import {Navbar, NavbarBrand, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, NavbarContent, NavbarItem, Button} from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import {Logo} from "./Logo.jsx";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from 'sonner'
 
 export default function NavbarComponent() {
+  const navigate = useNavigate();
   const menuItems = [
     "Profile",
     "Dashboard",
@@ -22,6 +26,22 @@ export default function NavbarComponent() {
   const handleActiveItem = (item) => {
     console.log(item);
     setActiveItem(item);
+  }
+
+  const handleLogout = async() => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await axios.get('http://localhost:3000/api/user/logout', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      localStorage.removeItem('token');
+      toast.success(res.data.message);
+      navigate('/login');
+    } catch (error) {
+      console.log("Something went wrong while logging out user", error);
+    }
   }
 
   return (
@@ -90,13 +110,12 @@ export default function NavbarComponent() {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link to="/login">Login</Link>
-        </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="warning" to="/register" variant="flat">
-            Sign Up
-          </Button>
+          <button 
+          className="bg-black text-white pt-2 pb-2 pl-4 pr-4 rounded-md hover:bg-gray-800"
+          onClick={handleLogout}>
+            Logout
+          </button>
         </NavbarItem>
       </NavbarContent>
 

@@ -27,6 +27,7 @@
     "react-hook-form": "^7.52.1",
     "react-router-dom": "^6.24.1",
     "simplex-noise": "^4.0.1",
+    "socket.io-client": "^4.7.5",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.4.0"
   },

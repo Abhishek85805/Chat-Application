@@ -1,12 +1,20 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import UserComponent from './User/UserComponent';
+import { useNavigate } from 'react-router-dom';
 
 function Chat() {
   const [user, setUser] = useState({});
   const [messages, setMessages] = useState([]);
   const [friend, setFriend] = useState('');
   const [newMessage, setNewMessage] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      navigate("/login");
+    }
+  }, [])
 
   useEffect(() => {
     async function currentUser() {
@@ -86,7 +94,7 @@ function Chat() {
               </div>
             ))
           ) : (
-            <div className='flex-grow flex justify-center items-center'>No Messages</div>
+            <div className='flex-grow flex justify-center items-center'>No Chat Selected</div>
           )}
         </div>
         {friend && (

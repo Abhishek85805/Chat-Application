@@ -92,6 +92,14 @@ const login = asyncHandler(async(req, res) => {
     })
 });
 
+const logout = asyncHandler(async(req, res) => {
+    const userId = req.user._id;
+
+    res.status(200).json({
+        message: 'User logged out successfully'
+    })
+})
+
 const searchUser = asyncHandler(async(req, res) => {
     const {username} = req.body;
 
@@ -280,5 +288,6 @@ export {
     requestRejected,
     unFriend,
     allFriends,
-    friendRequests
+    friendRequests,
+    logout
 }
