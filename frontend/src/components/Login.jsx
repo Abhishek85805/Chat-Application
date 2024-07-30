@@ -1,7 +1,9 @@
 import { faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'sonner'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function Login({setLogin}) {
     const [fields, setFields] = useState({
@@ -9,12 +11,16 @@ function Login({setLogin}) {
         password: ""
     })
 
+    const [loading , setLoading] = useState(false);
+
+    const navigate = useNavigate();
+
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         return emailRegex.test(email)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         let valid = true;
@@ -31,14 +37,23 @@ function Login({setLogin}) {
         if (!fields.password) {
             newErrors.push("Password is required")
             valid = false
-        }else if(fields.password.length < 8){
-            newErrors.push("Password must be at least 8 character long")
-            valid = false;
         }
 
         if(valid){
-            toast.success("Login Successfully")
-            console.log(fields);
+            setLoading(true)
+            try {
+                const res = await axios.post('http://localhost:3000/api/user/login', fields);     
+                console.log(res);
+                const token = res.data.token;
+                localStorage.setItem('token', token);
+                toast.success("Logged in Successfully");
+                navigate('/chat');
+            } catch (error) {
+                console.log(error);
+                toast.error("Login failed");
+            } finally{
+                setLoading(false);
+            }
         }else{
             newErrors.forEach(error => {
                 toast.error(error);
@@ -77,7 +92,7 @@ function Login({setLogin}) {
             </div>
 
             <button className='bg-[#73D4E5] w-full py-[0.7rem] font-bold rounded-lg mb-[1.7rem]'>
-                Login
+                {loading? 'Logging in..' : 'Login'}
             </button>
         </form>
 

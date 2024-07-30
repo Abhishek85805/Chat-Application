@@ -15,6 +15,9 @@ app.use(express.urlencoded({extended: true, limit: "16kb"}));
 app.use(express.static("public"));
 app.use(cookieParser());
 
+import userRouter from './routes/user.routes.js';
+app.use('/api/user', userRouter);
+
 dbConnection().then(()=>{
     app.listen(port, ()=>{
         console.log(`Listening on port ${port}`)
