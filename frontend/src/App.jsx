@@ -6,7 +6,7 @@ import Chat from './pages/Chat'
 
 function App() {
   return (
-    <div className='h-screen'>
+    <div className='h-screen bg-home-page bg-cover bg-center bg-no-repeat bg-fixed'>
       <Toaster/>
       <Routes >
         <Route path='/' element={<Home/>}/>
