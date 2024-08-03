@@ -1,13 +1,19 @@
 import React from 'react'
 import { ChatState } from '../Context/ChatProvider.jsx'
-import Sidebar from '../components/Sidebar.jsx';
+import MyChats from '../components/MyChats.jsx';
+import ChatBox from '../components/ChatBox.jsx';
+import Header from '../components/Header.jsx';
 
 function Chat() {
   const {token} = ChatState();
 
   return (
     <div>
-      {token && <Sidebar/>}
+      {token && <Header/>}
+      <div>
+        {token && <MyChats/>}
+        {token && <ChatBox/>}
+      </div>
     </div>
   )
 }
