@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { faMagnifyingGlass, faBell, faUser, faX} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Sidebar from './Sidebar';
+import Profile from './Profile';
 
 function Header() {
   const [menuBar, setMenuBar] = useState(false);
   const [sideBar, setSideBar] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
 
   return (
     <div className='relative h-[70px] flex justify-between items-center bg-white px-[1rem]'>
@@ -38,12 +40,19 @@ function Header() {
             <div className='relative w-[30px] h-[30px] rounded-full bg-white flex justify-center items-center'>
               <FontAwesomeIcon icon={faUser} />
             </div>
-            <div className={`${!menuBar && 'hidden'} absolute top-[70px] right-[1rem] rounded-b-md flex flex-col items-start w-[130px] bg-white`}>
-              <div className='hover:bg-[#eff7f8] transition-all duration-200 ease-linear w-full p-2 text-start'>My Profile</div>
-              <div className='hover:bg-[#eff7f8] transition-all duration-200 ease-linear w-full p-2 text-start'>Logout</div>
-            </div>
           </button>
+          <div className={`${!menuBar && 'hidden'} absolute top-[72px] right-[1rem] rounded-b-md flex flex-col items-start w-[130px] bg-white`}>
+            <div 
+            className='hover:bg-[#eff7f8] transition-all duration-200 ease-linear w-full p-2 text-start'
+            onClick={()=>setOpenProfile(true)}
+            >
+              My Profile
+            </div>
+            <div className='hover:bg-[#eff7f8] transition-all duration-200 ease-linear w-full p-2 text-start'>Logout</div>
+          </div>
         </div>
+
+        <Profile openProfile = {openProfile}/>
     </div>
   )
 }
