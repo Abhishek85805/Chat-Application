@@ -1,6 +1,7 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import Friend from './Friend'
 
 function MyChats() {
   return (
@@ -13,7 +14,18 @@ function MyChats() {
             <FontAwesomeIcon icon={faPlus} />
           </button>
         </div>
-        <div className='flex-1 h-0 overflow-auto rounded-lg bg-[#f2f6f9]'>
+        <div className='flex-1 h-0 overflow-auto rounded-lg bg-[#f2f6f9] p-[0.6rem]'>
+          <Friend/>
+          <Friend/>
+          <Friend/>
+          <Friend/>
+          <Friend/>
+          <Friend/>
+          <Friend/>
+          <Friend/>
+          <Friend/>
+          <Friend/>
+          <Friend/>
         </div>
       </div>
     </div>
