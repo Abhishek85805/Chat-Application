@@ -18,7 +18,7 @@ const ChatProvider = ({ children }) => {
     <ChatContext.Provider
       value={{
         token,
-        setToken,
+        setToken
       }}
     >
       {children}
