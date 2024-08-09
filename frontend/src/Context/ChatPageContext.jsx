@@ -4,12 +4,14 @@ export const ChatPageContext = createContext();
 
 export const ChatPageProvider = (props) => {
     const [back, setBack] = useState(false);
+    const [profile, setProfile] = useState(false);
     return (
         <ChatPageContext.Provider
         value={{
             back, 
             setBack, 
-            greeting: "Kidda"
+            profile,
+            setProfile
         }}>
             {props.children}
         </ChatPageContext.Provider>

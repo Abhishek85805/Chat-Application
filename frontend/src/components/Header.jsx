@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { faMagnifyingGlass, faBell, faUser, faX} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Sidebar from './Sidebar';
 import Profile from './Profile';
+import { ChatPageContext } from '../Context/ChatPageContext';
 
 function Header() {
   const [menuBar, setMenuBar] = useState(false);
   const [sideBar, setSideBar] = useState(false);
-  const [openProfile, setOpenProfile] = useState(false);
 
-  const closeProfile = () => {
-    setOpenProfile(false);
-  }
+  const chatPage = useContext(ChatPageContext);
 
   return (
     <div className='h-[70px] px-1 pt-1'>  
@@ -22,7 +20,7 @@ function Header() {
             onClick={()=>setSideBar(true)}
             >
               <FontAwesomeIcon icon={faMagnifyingGlass} />
-              <button className='ml-2 md:ml-1' disabled={openProfile}>Search</button>
+              <button className='ml-2 md:ml-1' disabled={chatPage.profile}>Search</button>
             </div>
             <div className={`${!sideBar && 'hidden'}`}>
               <Sidebar/>
@@ -37,11 +35,11 @@ function Header() {
             CHAT APP
           </div>
           <div>
-            <FontAwesomeIcon icon={faBell} disabled={openProfile} />
+            <FontAwesomeIcon icon={faBell} disabled={chatPage.profile} />
             <button 
             className='w-[70px] bg-[#0BA7BD] rounded-lg px-3 py-2 ml-2 hover:bg-[#73D4E5] transition-all duration-200 ease-linear outline-none'
             onClick={()=>setMenuBar(!menuBar)}
-            disabled={openProfile}
+            disabled={chatPage.profile}
             >
               <div className='relative w-[30px] h-[30px] rounded-full bg-white flex justify-center items-center'>
                 <FontAwesomeIcon icon={faUser} />
@@ -50,16 +48,14 @@ function Header() {
             <div className={`${!menuBar && 'hidden'} absolute top-[72px] right-[1rem] rounded-b-md flex flex-col items-start w-[130px] bg-white`}>
               <button 
               className='hover:bg-[#eff7f8] transition-all duration-200 ease-linear w-full p-2 text-start'
-              onClick={()=>setOpenProfile(true)}
-              disabled={openProfile}
+              onClick={()=>chatPage.setProfile(true)}
+              disabled={chatPage.profile}
               >
                 My Profile
               </button>
-              <div className='hover:bg-[#eff7f8] transition-all duration-200 ease-linear w-full p-2 text-start' disabled={openProfile}>Logout</div>
+              <div className='hover:bg-[#eff7f8] transition-all duration-200 ease-linear w-full p-2 text-start' disabled={chatPage.profile}>Logout</div>
             </div>
           </div>
-
-          <Profile openProfile = {openProfile} closeProfile = {closeProfile}/>
       </div>
     </div>
   )
