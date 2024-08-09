@@ -6,7 +6,7 @@ export default {
   ],
   theme: {
     screens: {
-      'md': {'min': '0px', 'max':'600px'}
+      'md': {'min': '0px', 'max':'720px'}
     },
     extend: {
       backgroundImage: {

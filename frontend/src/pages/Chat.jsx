@@ -8,9 +8,9 @@ function Chat() {
   const {token} = ChatState();
 
   return (
-    <div>
+    <div className='h-screen overflow-auto'>
       {token && <Header/>}
-      <div>
+      <div style={{height: 'calc(100% - 70px)'}} className='flex flex-row'>
         {token && <MyChats/>}
         {token && <ChatBox/>}
       </div>
