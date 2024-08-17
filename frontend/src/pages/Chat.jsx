@@ -1,14 +1,25 @@
-import React, { useContext } from 'react'
-import { ChatState } from '../Context/ChatProvider.jsx'
+import React, { useContext, useEffect } from 'react'
 import MyChats from '../components/MyChats.jsx';
 import ChatBox from '../components/ChatBox.jsx';
 import Header from '../components/Header.jsx';
 import { ChatPageContext } from '../Context/ChatPageContext.jsx';
 import Profile from '../components/Profile.jsx';
+import axios from 'axios';
 
 function Chat() {
-  const {token} = ChatState();
+  const token = localStorage.getItem('token');
   const chatPage = useContext(ChatPageContext);
+  
+  useEffect(()=>{
+    ;(async()=>{
+      const res = await axios.get('http://localhost:3000/api/user/current-user', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      chatPage.setUser(res.data);
+    })()
+  }, []);
 
   return (
     <div className={`h-screen overflow-hidden relative`}>

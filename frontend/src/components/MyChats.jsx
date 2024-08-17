@@ -17,7 +17,6 @@ function MyChats() {
           Authorization: `Bearer ${token}`
         }
       })
-      console.log(res.data);
       chatPage.setChats(res.data);
 
     } catch (error) {

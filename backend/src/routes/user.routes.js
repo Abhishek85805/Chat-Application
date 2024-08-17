@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerUser, loginUser, allUsers } from '../controllers/user.controllers.js';
+import { registerUser, loginUser, allUsers, currentUser } from '../controllers/user.controllers.js';
 import { upload } from '../middlewares/multer.middleware.js';
 import verifyJWT from '../middlewares/auth.middleware.js';
 
@@ -15,6 +15,7 @@ router.route("/register").post(
     registerUser
 );
 router.route('/login').post(loginUser);
+router.route('/current-user').get(verifyJWT, currentUser);
 router.route('/').get(verifyJWT, allUsers);
 
 

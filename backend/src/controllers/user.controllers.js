@@ -99,9 +99,17 @@ const allUsers = asyncHandler(async (req, res) => {
     res.send(users);
 });
 
+const currentUser = asyncHandler(async(req, res) => {
+    const userId = req.user._id;
+    const user = await User.findOne(userId);
+
+    return res.status(200).json(user);
+})
+
 
 export {
     registerUser,
     loginUser,
-    allUsers
+    allUsers,
+    currentUser
 }
