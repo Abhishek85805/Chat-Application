@@ -18,6 +18,9 @@ app.use(cookieParser());
 import userRouter from './routes/user.routes.js';
 app.use('/api/user', userRouter);
 
+import chatRouter from './routes/chat.routes.js';
+app.use('/api/chat', chatRouter);
+
 dbConnection().then(()=>{
     app.listen(port, ()=>{
         console.log(`Listening on port ${port}`)

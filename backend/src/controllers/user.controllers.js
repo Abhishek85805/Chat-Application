@@ -6,7 +6,7 @@ import uploadOnCloudinary from '../utils/cloudinary.js';
 const generateJwtToken  = (user_id) => {
     return jwt.sign(
         {
-            id: user_id
+            _id: user_id
         },
         process.env.TOKEN_SECRET,
         {
@@ -72,16 +72,36 @@ const loginUser = asyncHandler(async(req, res) => {
         throw new Error("Invalid email or password");
     }
 
-    res.status(200).json({
+    const token = generateJwtToken(user._id);
+
+    res.status(200)
+    .cookie('token', token)
+    .json({
         _id: user._id,
         name: user.name,
         email: user.email,
         avatar: user.avatar,
-        token: generateJwtToken(user._id)
+        token: token
     })
 })
 
+const allUsers = asyncHandler(async (req, res) => {
+    const keyword = req.query.search
+    ? {
+        $or: [
+          { name: { $regex: req.query.search, $options: "i" } },
+          { email: { $regex: req.query.search, $options: "i" } },
+        ],
+      }
+    : {};
+
+    const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+    res.send(users);
+});
+
+
 export {
     registerUser,
-    loginUser
+    loginUser,
+    allUsers
 }

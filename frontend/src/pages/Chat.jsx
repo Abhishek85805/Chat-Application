@@ -12,7 +12,7 @@ function Chat() {
 
   return (
     <div className={`h-screen overflow-hidden relative`}>
-      <div className={`h-full overflow-hidden ${chatPage.profile && 'opacity-50'} transition-all duration-200 ease-linear`}>
+      <div className={`h-full overflow-hidden ${chatPage.profile && 'opacity-50'}`}>
         {token && <Header/>}
         <div style={{height: 'calc(100% - 70px)'}} className='flex flex-row md:block'>
           {token && <MyChats/>}

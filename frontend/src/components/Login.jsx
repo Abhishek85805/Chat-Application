@@ -43,7 +43,6 @@ function Login({setLogin}) {
             setLoading(true)
             try {
                 const res = await axios.post('http://localhost:3000/api/user/login', fields);     
-                console.log(res);
                 const token = res.data.token;
                 localStorage.setItem('token', token);
                 toast.success("Logged in Successfully");

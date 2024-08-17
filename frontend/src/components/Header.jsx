@@ -4,12 +4,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Sidebar from './Sidebar';
 import Profile from './Profile';
 import { ChatPageContext } from '../Context/ChatPageContext';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const [menuBar, setMenuBar] = useState(false);
   const [sideBar, setSideBar] = useState(false);
+  const navigate = useNavigate();
 
   const chatPage = useContext(ChatPageContext);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    toast.success("User logged out successfully");
+    navigate('/');
+  }
 
   return (
     <div className='h-[70px] px-1 pt-1'>  
@@ -53,7 +62,13 @@ function Header() {
               >
                 My Profile
               </button>
-              <div className='hover:bg-[#eff7f8] transition-all duration-200 ease-linear w-full p-2 text-start' disabled={chatPage.profile}>Logout</div>
+              <div 
+              className='hover:bg-[#eff7f8] transition-all duration-200 ease-linear w-full p-2 text-start cursor-pointer' 
+              disabled={chatPage.profile}
+              onClick={handleLogout}
+              >
+                Logout
+              </div>
             </div>
           </div>
       </div>
