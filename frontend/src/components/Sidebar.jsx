@@ -34,20 +34,6 @@ function Sidebar() {
     
   }, [search])
 
-  // const handleGoButton = async() => {
-  //   try {
-  //     const token = localStorage.getItem('token');
-  //     const res = await axios.get('http://localhost:3000/api/user?search='+search, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`
-  //       }
-  //     })
-  //     setData(res.data);
-  //   } catch (error) {
-  //     toast.error('Something went wrong');
-  //     console.log(error);
-  //   }
-  // }
   return (
     <div className='bg-white w-[300px] md:w-[250px] py-[0.8rem] px-[1rem] h-screen absolute top-0 left-0 z-10'>
       <div className='flex flex-col h-full'>

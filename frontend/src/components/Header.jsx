@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const [menuBar, setMenuBar] = useState(false);
-  const [sideBar, setSideBar] = useState(false);
   const navigate = useNavigate();
 
   const chatPage = useContext(ChatPageContext);
@@ -26,17 +25,17 @@ function Header() {
           <div>
             <div 
             className='bg-[#0BA7BD] p-2 rounded-lg text-white hover:bg-[#73D4E5] transition-all duration-200 ease-linear'
-            onClick={()=>setSideBar(true)}
+            onClick={()=>chatPage.setSideBar(true)}
             >
               <FontAwesomeIcon icon={faMagnifyingGlass} />
               <button className='ml-2 md:ml-1' disabled={chatPage.profile}>Search</button>
             </div>
-            <div className={`${!sideBar && 'hidden'}`}>
+            <div className={`${!chatPage.sideBar && 'hidden'}`}>
               <Sidebar/>
               <FontAwesomeIcon 
               icon={faX} 
               className='absolute top-0 left-[300px] md:left-[250px] w-[20px] h-[20px] bg-[#0BA7BD] text-white p-2 hover:bg-[#73D4E5] transition-all duration-200 ease-linear z-10'
-              onClick={()=>setSideBar(false)}
+              onClick={()=>chatPage.setSideBar(false)}
               />
             </div>
           </div>
