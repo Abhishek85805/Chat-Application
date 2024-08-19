@@ -21,6 +21,9 @@ app.use('/api/user', userRouter);
 import chatRouter from './routes/chat.routes.js';
 app.use('/api/chat', chatRouter);
 
+import messageRouter from './routes/message.routes.js';
+app.use('/api/message', messageRouter);
+
 dbConnection().then(()=>{
     app.listen(port, ()=>{
         console.log(`Listening on port ${port}`)
