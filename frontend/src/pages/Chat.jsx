@@ -28,7 +28,7 @@ function Chat() {
         <div style={{height: 'calc(100% - 70px)'}} className='flex flex-row md:block'>
           {token && <MyChats/>}
           {token && <ChatBox/>}
-        </div>`h-full overflow-hidden ${chatPage.profile && 'opacity-50'}`
+        </div>
       </div>
       <Profile/>
     </div>

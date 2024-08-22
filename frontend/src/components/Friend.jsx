@@ -3,6 +3,7 @@ import { ChatPageContext } from '../Context/ChatPageContext'
 
 function Friend({chat, index}) {
   const chatPage = useContext(ChatPageContext);
+  console.log(chat);
   const getFriendName = () => {
     return chatPage.user._id !== chat.users[0]._id ? chat.users[0].name : chat.users[1].name;
   }
@@ -20,8 +21,8 @@ function Friend({chat, index}) {
     >
         <div className='text-[1.3rem]'>{getFriendName()}</div>
         <div className='flex'>
-            <div className='font-semibold pr-[0.3rem]'>Name:</div>
-            <div>hello</div>
+            <div className='font-semibold pr-[0.3rem]'>{chat.latestMessage.sender.name}:</div>
+            <div>{chat.latestMessage.content}</div>
         </div>
     </div>
   )

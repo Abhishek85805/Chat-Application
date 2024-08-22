@@ -1,7 +1,7 @@
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ChatPageContext } from '../Context/ChatPageContext'
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState, useRef} from 'react'
 import Message from './Message'
 import axios from 'axios'
 import { toast } from 'sonner'
@@ -12,6 +12,7 @@ function ChatBox() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const messagesEndRef = useRef(null);
   const sendMessages = async(e) => {
     if(e.key === "Enter" && newMessage){
       try {
@@ -52,6 +53,10 @@ function ChatBox() {
     if(chatPage.selectedChat)
       fetchMessages(chatPage.selectedChat._id);
   }, [chatPage.selectedChat])
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView();
+  }, [messages]);
   
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
@@ -75,6 +80,7 @@ function ChatBox() {
             {
               !loading ? messages.map((message, index)=> <Message message={message} key={index} index={index}/>) : 'Loading....'
             }
+            <div ref={messagesEndRef} />
           </div>
           <input 
           className='bg-[#d7dbdb] outline-none p-[0.4rem] rounded-lg' 
