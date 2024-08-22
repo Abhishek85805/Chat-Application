@@ -6,11 +6,17 @@ function Friend({chat, index}) {
   const getFriendName = () => {
     return chatPage.user._id !== chat.users[0]._id ? chat.users[0].name : chat.users[1].name;
   }
+
+  const handleClick = () => {
+    chatPage.setBack(true);
+    chatPage.setSelectedChat(chat);
+  }
+
   return (
     <div 
-    className='bg-[#E8E8E8] hover:bg-[#d4d4d4] rounded-lg p-[0.6rem] mb-[0.6rem] transition-all duration-200 ease-linear'
+    className={`bg-[#E8E8E8] hover:bg-[#d4d4d4] rounded-lg p-[0.6rem] mb-[0.6rem] transition-all duration-200 ease-linear ${chatPage.selectedChat?._id === chat?._id && 'bg-[#d4d4d4]'}`}
     key={index}
-    onClick={()=> chatPage.setBack(true)}
+    onClick={handleClick}
     >
         <div className='text-[1.3rem]'>{getFriendName()}</div>
         <div className='flex'>

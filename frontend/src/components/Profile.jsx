@@ -11,15 +11,15 @@ function Profile() {
         <div className='text-right'>
           <FontAwesomeIcon icon={faX} onClick={()=>chatPage.setProfile(false)} className='hover:text-[#332d2d] text-[20px]'/>
         </div>
-        <h1 className='font-semibold text-2xl text-center mb-[20px]'>Name</h1>
+        <h1 className='font-semibold text-2xl text-center mb-[20px]'>{chatPage.user?.name}</h1>
         <div className='flex justify-center items-center'>
           <div className='border border-black w-[100px] h-[100px] rounded-full'>
-
+            <img src={chatPage.user?.avatar} alt="Avatar" className='h-full b-full rounded-full bg-cover bg-no-repeat' />
           </div>
         </div>
         <div className='text-2xl mb-[20px]'>
           <p>Email:</p>
-          <p>email@gmail.com</p>
+          <p>{chatPage.user?.email}</p>
         </div>
         <div className='text-right'>
           <button 

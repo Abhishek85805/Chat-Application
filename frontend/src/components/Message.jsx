@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ChatPageContext } from '../Context/ChatPageContext'
 
-function Message() {
+function Message({message, index}) {
+  const chatPage = useContext(ChatPageContext);
   return (
-    <div className='self-end p-[0.4rem] bg-[#a5f1c5] rounded-lg mb-[0.3rem]'>Message</div>
+    <div 
+    key={index} 
+    className={`${chatPage.user._id !== message.sender._id ? 'self-start bg-[#d4d4d4]' : 'self-end bg-[#a5f1c5]'} p-[0.4rem] rounded-lg mb-[0.3rem]`}>
+      {message.content}
+    </div>
   )
 }
 
