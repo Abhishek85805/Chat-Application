@@ -5,6 +5,10 @@ import React, {useContext, useEffect, useState, useRef} from 'react'
 import Message from './Message'
 import axios from 'axios'
 import { toast } from 'sonner'
+import io from 'socket.io-client';
+
+const ENDPOINT = "http://localhost:3000";
+var socket, selectedChatCompare;
 
 function ChatBox() {
   const token = localStorage.getItem('token');
@@ -12,6 +16,8 @@ function ChatBox() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [socketConnected, setSocketConnected] = useState(false);
+
   const messagesEndRef = useRef(null);
   const sendMessages = async(e) => {
     if(e.key === "Enter" && newMessage){
@@ -25,6 +31,7 @@ function ChatBox() {
             Authorization: `Bearer ${token}`
           }
         })
+        socket.emit('new message', res.data);
         setMessages([...messages, res.data]);
       } catch (error) {
         toast.error("Something went wrong!!");
@@ -41,8 +48,10 @@ function ChatBox() {
           Authorization: `Bearer ${token}`
         }
       })
-      setLoading(false);
       setMessages(res.data);
+      setLoading(false);
+
+      socket.emit('join chat', chatPage.selectedChat._id); 
     } catch (error) {
       toast.error("Coudn't fetch the messages");
       console.log("Something went wrong while fetching messages", error);
@@ -50,13 +59,31 @@ function ChatBox() {
   }
 
   useEffect(()=>{
-    if(chatPage.selectedChat)
+    if(chatPage.selectedChat){
       fetchMessages(chatPage.selectedChat._id);
+      selectedChatCompare = chatPage.selectedChat;
+    }
   }, [chatPage.selectedChat])
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView();
   }, [messages]);
+
+  useEffect(()=>{
+    socket = io(ENDPOINT);
+    socket.emit("setup", chatPage.user)
+    socket.on('connect', () => setSocketConnected(true));
+  }, [])
+
+  useEffect(()=>{
+    socket.on('message recieved', (newMessageRecieved) => {
+      if(!selectedChatCompare || selectedChatCompare._id != newMessageRecieved.chat._id){
+        //Give notification
+      }else{
+        setMessages([...messages, newMessageRecieved]);
+      }
+    })
+  })
   
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
@@ -64,7 +91,7 @@ function ChatBox() {
   }
 
   return (
-    <div className='h-full p-1 flex-[0.62]'>
+    <div className={`h-full p-1 flex-[0.62] ${chatPage.back ? 'md:block' : 'md:hidden'}`}>
       <div className='h-full w-full bg-white rounded-lg flex flex-col p-[0.4rem]'>
         <div className='flex justify-between p-[1rem]'>
           <div 

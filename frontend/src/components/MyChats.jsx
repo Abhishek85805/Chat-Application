@@ -30,7 +30,7 @@ function MyChats() {
   }, [])
 
   return (
-    <div className={`h-full py-1 pl-1 flex-[0.38] ${chatPage.back && 'md:hidden'}`}>
+    <div className={`h-full py-1 pl-1 flex-[0.38] ${chatPage.back ? 'md:hidden' : 'md:block'}`}>
       <div className='h-full bg-white rounded-lg flex flex-col p-[0.4rem]'>
         <div className='flex flex-row justify-between mb-[0.3rem]'>
           <h1 className='text-[1.2rem]'>My Chats</h1>
