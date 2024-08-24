@@ -14,7 +14,7 @@ function Chat() {
   useEffect(()=>{
     ;(async()=>{
       setLoading(true);
-      const res = await axios.get('http://localhost:3000/api/user/current-user', {
+      const res = await axios.get('https://chat-application-fmoj.onrender.com/api/user/current-user', {
         headers: {
           Authorization: `Bearer ${token}`
         }

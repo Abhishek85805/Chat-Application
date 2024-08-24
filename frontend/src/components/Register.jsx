@@ -56,7 +56,7 @@ function Register({ setLogin }) {
                     formData.append('avatar', fields.avatar);
                 }
 
-                const res = await axios.post('http://localhost:3000/api/user/register', formData, {
+                const res = await axios.post('https://chat-application-fmoj.onrender.com/api/user/register', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }

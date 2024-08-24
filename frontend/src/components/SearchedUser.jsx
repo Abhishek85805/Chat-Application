@@ -8,7 +8,7 @@ function SearchedUser({user, index}) {
   const handleChat = async() => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('http://localhost:3000/api/chat', {userId: user._id}, {
+      const res = await axios.post('https://chat-application-fmoj.onrender.com/api/chat', {userId: user._id}, {
         headers: {
           Authorization: `Bearer ${token}`
         }

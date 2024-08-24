@@ -12,7 +12,7 @@ function Sidebar() {
     ;(async()=>{
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:3000/api/user?search='+search, {
+        const res = await axios.get('https://chat-application-fmoj.onrender.com/api/user?search='+search, {
           headers: {
             Authorization: `Bearer ${token}`
           },

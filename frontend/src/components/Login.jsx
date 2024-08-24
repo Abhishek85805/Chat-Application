@@ -42,7 +42,7 @@ function Login({setLogin}) {
         if(valid){
             setLoading(true)
             try {
-                const res = await axios.post('http://localhost:3000/api/user/login', fields);     
+                const res = await axios.post('https://chat-application-fmoj.onrender.com/api/user/login', fields);     
                 const token = res.data.token;
                 localStorage.setItem('token', token);
                 toast.success("Logged in Successfully");

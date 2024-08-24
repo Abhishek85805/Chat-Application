@@ -12,7 +12,7 @@ function MyChats() {
   const fetchFriends = async() => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:3000/api/chat', {
+      const res = await axios.get('https://chat-application-fmoj.onrender.com/api/chat', {
         headers: {
           Authorization: `Bearer ${token}`
         }

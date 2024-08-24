@@ -7,7 +7,7 @@ import axios from 'axios'
 import { toast } from 'sonner'
 import io from 'socket.io-client';
 
-const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = "https://chat-application-fmoj.onrender.com";
 var socket, selectedChatCompare;
 
 function ChatBox() {
@@ -23,7 +23,7 @@ function ChatBox() {
     if(e.key === "Enter" && newMessage){
       try {
         setNewMessage("");
-        const res = await axios.post('http://localhost:3000/api/message', {
+        const res = await axios.post('https://chat-application-fmoj.onrender.com/api/message', {
           content: newMessage,
           chatId: chatPage.selectedChat._id
         }, {
@@ -43,7 +43,7 @@ function ChatBox() {
   const fetchMessages = async(friend_id) => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:3000/api/message/${friend_id}`, {
+      const res = await axios.get(`https://chat-application-fmoj.onrender.com/api/message/${friend_id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
