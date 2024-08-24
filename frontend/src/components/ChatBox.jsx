@@ -103,7 +103,7 @@ function ChatBox() {
           <p className='text-[1.3rem]'>{chatPage.selectedChat?.users[0].name === chatPage.user?.name ? chatPage.selectedChat?.users[1].name : chatPage.selectedChat?.users[0].name}</p>
         </div>
         <div className='flex-1 h-0 rounded-lg bg-[#f2f6f9] p-[0.6rem] flex flex-col'>
-          <div className='flex-1 h-0 mb-[0.5rem] overflow-auto flex flex-col scrollbar-thin'>
+          <div className='flex-1 mb-[0.5rem] overflow-y-auto flex flex-col scrollbar-thin'>
             {
               !loading ? messages.map((message, index)=> <Message message={message} key={index} index={index}/>) : 'Loading....'
             }

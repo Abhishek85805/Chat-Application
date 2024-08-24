@@ -21,7 +21,7 @@ function Friend({chat, index}) {
         <div className='text-[1.3rem]'>{getFriendName()}</div>
         <div className='flex'>
             <div className='font-semibold pr-[0.3rem]'>{chat.latestMessage?.sender.name}:</div>
-            <div>{chat.latestMessage?.content}</div>
+            <div className='w-[6rem] h-[1.8rem] overflow-hidden'>{chat.latestMessage?.content}</div>
         </div>
     </div>
   )
