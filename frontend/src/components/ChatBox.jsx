@@ -110,7 +110,7 @@ function ChatBox() {
             <div ref={messagesEndRef} />
           </div>
           <input 
-          className='bg-[#d7dbdb] outline-none p-[0.4rem] rounded-lg' 
+          className={`bg-[#d7dbdb] outline-none p-[0.4rem] rounded-lg ${!chatPage.selectedChat && 'hidden'}`} 
           type="text" 
           placeholder='Enter a Message'
           value={newMessage}
