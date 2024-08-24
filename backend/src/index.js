@@ -35,7 +35,7 @@ const server = http.createServer(app);
 const io = new SocketIo(server, {
     pingTimeout: 60000,
     cors: {
-      origin: ["https://chit-chat-abhishek.netlify.app"],
+      origin: "https://chit-chat-abhishek.netlify.app",
     },
 });
 
